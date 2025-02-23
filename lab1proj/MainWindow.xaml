@@ -11,10 +11,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="btnEllipse" Width="80" Height="40" Margin="15,60,705,334" Click="btnEllipse_Click" >
+            <Button.Content>
+                Круг
+            </Button.Content>
+        </Button>
+        <Button Width="50" Height="30" Margin="115,65,635,339" Click="Button_Click_1">    
+            Назад
+        </Button>
+        
         <Button Width="200" Height="100" Margin="15,150,585,184" Click="Button_Click">
             Нарисовать многоуголник
         </Button>
-        <Canvas x:Name="canvasForDraw" Margin="215,60,153,85" Background="LightGreen">
+        <Canvas x:Name="canvasForDraw" Margin="215,60,153,85" Background="LightGreen" 
+                MouseDown="onMouseDownDraw" 
+                MouseMove="onMouseMoveDraw"
+                MouseUp="onMouseUpDraw">
             
         </Canvas>
     </Grid>

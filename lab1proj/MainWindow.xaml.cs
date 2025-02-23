@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,6 +20,12 @@ namespace lab1proj
             InitializeComponent();
 
         }
+
+        public int X1 { get; set; }
+        public int Y1 { get; set; }
+        public int X2 { get; set; }
+        public int Y2 { get; set; }
+        public bool IsPressed { get; set; } = false;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -44,5 +52,66 @@ namespace lab1proj
             myPolygon.drawShape(canvasForDraw);
 
         }
+
+        private void btnEllipse_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void onMouseDownDraw(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Point point = e.GetPosition(canvasForDraw);
+            X1 = (int)point.X;
+            Y1 = (int)point.Y;
+            IsPressed = true;
+            canvasForDraw.Children.Add(new Ellipse());
+        }
+
+        private void onMouseMoveDraw(object sender, MouseEventArgs e)
+        {
+
+            MyEllipse myEllipse = new MyEllipse();
+            myEllipse.LineThickness = 1;
+            myEllipse.FillColor = 0xff665566;
+
+
+            if (IsPressed)
+            {
+                canvasForDraw.Children.Remove(canvasForDraw.Children[canvasForDraw.Children.Count - 1]);
+                System.Windows.Point p = e.GetPosition(canvasForDraw);
+                X2 = (int)p.X;
+                Y2 = (int)p.Y;
+
+                myEllipse.X1 = (X1 > X2 ? X2 : X1);
+                myEllipse.Y1 = (Y1 > Y2 ? Y2 : Y1);
+
+                myEllipse.Width = (uint)Math.Abs(X2 - X1);
+                myEllipse.Height = (uint)Math.Abs(Y2 - Y1);
+                myEllipse.drawShape(canvasForDraw);
+
+            }
+        }
+
+        private void onMouseUpDraw(object sender, MouseButtonEventArgs e)
+        {
+            IsPressed = false;
+
+            canvasForDraw.Children.Remove(canvasForDraw.Children[canvasForDraw.Children.Count - 1]);
+            MyEllipse myEllipse = new MyEllipse();
+            myEllipse.LineThickness = 1;
+            myEllipse.FillColor = 0xff99bbaa;
+            myEllipse.X1 = (X1 > X2 ? X2 : X1);
+            myEllipse.Y1 = (Y1 > Y2 ? Y2 : Y1);
+            myEllipse.Width = (uint)Math.Abs(X2 - X1);
+            myEllipse.Height = (uint)Math.Abs(Y2 - Y1);
+            myEllipse.drawShape(canvasForDraw);
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            canvasForDraw.Children.Remove(canvasForDraw.Children[canvasForDraw.Children.Count - 1]);
+        }
+
     }
 }

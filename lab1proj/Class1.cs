@@ -74,8 +74,10 @@ namespace lab1proj
             ellipse.Width = Width;
             ellipse.Height = Height;
             ellipse.StrokeThickness = LineThickness;
-            ellipse.SetValue(Canvas.LeftProperty, (double)X1);
-            ellipse.SetValue(Canvas.TopProperty, (double)Y1);
+            Canvas.SetLeft(ellipse, X1);
+            Canvas.SetTop(ellipse, Y1);
+            //ellipse.SetValue(Canvas.LeftProperty, (double)X1);
+            //ellipse.SetValue(Canvas.TopProperty, (double)Y1);
 
             canvas.Children.Add(ellipse);
         }
@@ -159,7 +161,6 @@ namespace lab1proj
                (byte)(LineColor & 0x000000FF)));
 
             canvas.Children.Add(polygon);
-
 
         }
 
