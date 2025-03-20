@@ -20,4 +20,4 @@ obj/
 packages/
 
 # Игнорировать всякую Rider херню бл
-*.xml/
+.idea
