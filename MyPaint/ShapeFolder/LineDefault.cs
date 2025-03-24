@@ -48,7 +48,7 @@ public class LineDefault : ShapeAllKinds
         set { lineColor = value; }
     }
 
-    public override Path FigurePtr { get; set; }
+    public override Shape FigurePtr { get; set; }
 
     public override void UpdateData()
     {

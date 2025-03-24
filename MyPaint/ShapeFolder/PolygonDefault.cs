@@ -1,6 +1,5 @@
-﻿using System.Windows.Media;
-using System.Windows.Shapes;
-using Color = System.Drawing.Color;
+﻿using System.Windows.Shapes;
+using System.Drawing;
 
 namespace MyPaint;
 
@@ -37,7 +36,7 @@ public class PolygonDefault : ShapeAllKinds
     }
 
 
-    public override Path FigurePtr { get; set; }
+    public override Shape FigurePtr { get; set; }
 
     public override void UpdateData()
     {

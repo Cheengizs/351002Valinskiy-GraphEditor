@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.Windows.Media;
 
 namespace MyPaint;
 
@@ -13,10 +13,11 @@ public static class InformationForDraw
     public static double xExit;
     public static double yExit;
 
-    public static Color FillColor;
-    public static Color StrokeColor;
+    public static Color FillColor = Colors.White;
+    public static Color StrokeColor = Colors.Black;
 
-    public static int StrokeThicknes;
-    public static int LineThickness;
+    public static int StrokeThicknes = 2;
+    public static int LineThickness = 2;
     
+    public static bool isDrawed = false;
 }

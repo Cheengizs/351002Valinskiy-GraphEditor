@@ -55,7 +55,7 @@ public class EllipseDefault : ShapeAllKinds
     }
 
 
-    public override Path FigurePtr { get; set; }
+    public override Shape FigurePtr { get; set; }
 
     public override void UpdateData()
     {
