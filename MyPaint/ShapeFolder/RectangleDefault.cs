@@ -108,4 +108,11 @@ public class RectangleDefault : ShapeAllKinds
             IsHitTestVisible = false,
         };
     }
+    
+    //
+    // public Rectangle getFigure()
+    // {
+    //     return new Rectangle();
+    // }
+    
 }

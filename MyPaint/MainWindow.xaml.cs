@@ -1,11 +1,7 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Shapes;
-using System.Reflection;
 using System.Windows.Media;
 
 namespace MyPaint
@@ -125,7 +121,6 @@ namespace MyPaint
         private void SelectStrokeColor(object sender, RoutedEventArgs e, int index)
         {
             InformationForDraw.StrokeColor = DefaultTools.ColorsTools[index];
-            // rectStrokeColor.Fill = new SolidColorBrush(InformationForDraw.StrokeColor);
             CurrSelectedStrokeColor = (sender as Border);
             CurrSelectedStrokeColor.BorderBrush = Brushes.CornflowerBlue;
         }
@@ -145,6 +140,8 @@ namespace MyPaint
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
+                    
+                    // тут можно сократить объем кода
                     Canvas canvas = sender as Canvas;
                     if (canvas != null)
                     {
@@ -152,6 +149,7 @@ namespace MyPaint
 
                         Point position = e.GetPosition(canvas);
                         this.Title = $"{canvasForDrawing.Children.Count}";
+                        
                         InformationForDraw.xExit = position.X;
                         InformationForDraw.yExit = position.Y;
 

@@ -4,10 +4,6 @@ namespace MyPaint;
 
 public static class InformationForDraw
 {
-    // т.к. значения могут быть отрицательными, то использовать 
-    // формулу нахождения расстояния между 2 точками
-    // |b| > |a| ? b - a : a - b
-    
     public static double xEnter;
     public static double yEnter;
     public static double xExit;
@@ -23,6 +19,4 @@ public static class InformationForDraw
     public static bool IsPressed = false;
     
     public static int ColorNumber = 1;
-
-    
 }
