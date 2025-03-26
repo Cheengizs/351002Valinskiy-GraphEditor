@@ -20,4 +20,9 @@ public static class InformationForDraw
     public static int LineThickness = 2;
     
     public static bool isDrawed = false;
+    public static bool IsPressed = false;
+    
+    public static int ColorNumber = 1;
+
+    
 }

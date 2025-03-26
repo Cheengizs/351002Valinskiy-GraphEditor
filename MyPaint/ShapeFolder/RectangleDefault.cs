@@ -23,8 +23,6 @@ public class RectangleDefault : ShapeAllKinds
             x2 = value;
             Canvas.SetLeft(FigurePtr, x2 > x1 ? x1 : x2);
             FigurePtr.Width = Math.Abs(x2 - x1);
-
-            
         }
     }
 

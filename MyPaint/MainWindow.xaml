@@ -7,12 +7,124 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="rowFileAndView"
+                           Height="20">
+            </RowDefinition>
+            <RowDefinition x:Name="rowTools"
+                           Height="70">
+            </RowDefinition>
+            <RowDefinition x:Name="rowDrawArea"
+                           Height="*">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            x:Name="stckFileAndView"
+            Grid.Row="0"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnFileSettings"
+                Content="Файл"
+                Height="20" />
+            <Button
+                x:Name="btnMain"
+                Content="Главная" />
+            <Button
+                x:Name="btnView"
+                Content="Вид" />
+        </StackPanel>
+
+        <StackPanel
+            x:Name="stckMainTools"
+            ZIndex="1"
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <!-- <Border x:Name="firstColor"> -->
+            <!--     <Grid MouseDown="SelectColor"> -->
+            <!--         <Grid.RowDefinitions> -->
+            <!--             <RowDefinition Height="2" /> -->
+            <!--             <RowDefinition Height="*" /> -->
+            <!--             <RowDefinition Height="2" /> -->
+            <!--         </Grid.RowDefinitions> -->
+            <!--         <Grid.ColumnDefinitions> -->
+            <!--             <ColumnDefinition Width="3" /> -->
+            <!--             <ColumnDefinition Width="*" /> -->
+            <!--             <ColumnDefinition Width="3" /> -->
+            <!--         </Grid.ColumnDefinitions> -->
+            <!--         <StackPanel -->
+            <!--             Width="30" -->
+            <!--             Grid.Row="1" -->
+            <!--             Grid.Column="1"> -->
+            <!--             <Border -->
+            <!--                 BorderThickness="1" -->
+            <!--                 BorderBrush="Black"> -->
+            <!--                 <Rectangle -->
+            <!--                     x:Name="rectStrokeColor" -->
+            <!--                     Margin="1 3 " -->
+            <!--                     Width="20" -->
+            <!--                     Height="20" -->
+            <!--                     Fill="Black" /> -->
+            <!--             </Border> -->
+            <!--             <TextBlock -->
+            <!--                 FontSize="10" -->
+            <!--                 Text="Цвет 1" /> -->
+            <!--         </StackPanel> -->
+            <!--     </Grid> -->
+            <!-- </Border> -->
+            <!-- <Border x:Name="secondColor"> -->
+            <!--     <Grid MouseDown="SelectColor"> -->
+            <!--         <Grid.RowDefinitions> -->
+            <!--             <RowDefinition Height="2" /> -->
+            <!--             <RowDefinition Height="*" /> -->
+            <!--             <RowDefinition Height="2" /> -->
+            <!--         </Grid.RowDefinitions> -->
+            <!--         <Grid.ColumnDefinitions> -->
+            <!--             <ColumnDefinition Width="3" /> -->
+            <!--             <ColumnDefinition Width="*" /> -->
+            <!--             <ColumnDefinition Width="3" /> -->
+            <!--         </Grid.ColumnDefinitions> -->
+            <!--         <StackPanel -->
+            <!--             Width="30" -->
+            <!--             Grid.Row="1" -->
+            <!--             Grid.Column="1"> -->
+            <!--             <Border -->
+            <!--                 BorderThickness="1" -->
+            <!--                 BorderBrush="Black"> -->
+            <!--                 <Rectangle -->
+            <!--                     x:Name="rectFillColor" -->
+            <!--                     Margin="1 3 " -->
+            <!--                     Width="20" -->
+            <!--                     Height="20" -->
+            <!--                     Fill="Black" /> -->
+            <!--             </Border> -->
+            <!--             <TextBlock -->
+            <!--                 FontSize="10" -->
+            <!--                 Text="Цвет 2"/> -->
+            <!--         </StackPanel> -->
+            <!--     </Grid> -->
+            <!-- </Border> -->
+            <UniformGrid x:Name="uniColors" Columns="5" Rows="3" />
+            <Button 
+                x:Name="btnUndo"
+                Click="BtnUndo_OnClick"
+                Content="ctrl z"/>
+            <Button 
+                x:Name = "btnRedo"
+                Click="BtnRedo_OnClick"
+                Content="ctrl y"/>
+
+        </StackPanel>
+
         <Canvas
             x:Name="canvasForDrawing"
-            Background="Aquamarine"
+            ZIndex="0"
+            Grid.Row="2"
+            Background="Transparent"
+            ClipToBounds="True"
             MouseDown="CanvasForDrawing_OnMouseDown"
             MouseMove="CanvasForDrawing_OnMouseMove"
-            MouseUp="CanvasForDrawing_OnMouseUp"
-            ></Canvas>
+            MouseUp="CanvasForDrawing_OnMouseUp">
+        </Canvas>
     </Grid>
 </Window>
