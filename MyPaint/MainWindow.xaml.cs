@@ -46,6 +46,7 @@ namespace MyPaint
             InitializeComponent();
             ProbablyShapes.Add(new RectangleDefault() { });
             AddColorsToTools();
+            AddthicknessesToTools();
         }
 
         private void AddOneColorToTools(int indexOfColor)
@@ -111,6 +112,60 @@ namespace MyPaint
                 AddOneColorToTools(i);
         }
 
+        private void AddthicknessesToTools()
+        {
+            StackPanel _ = new StackPanel();
+            
+            for (int i = 0; i < DefaultTools.ThicknessesTools.Count(); i++)
+                _.Children.Add(AddOneThicknessToTools(i));
+
+            popupThicknesses.Child = _;
+        }
+
+        private Button AddOneThicknessToTools(int index)
+        {
+            Button _btnThicknessAndText = new Button();
+
+            _btnThicknessAndText.Click += (s, e) =>
+                SelectThickness(s, e, index);
+
+            StackPanel _stckThicknessAndText = new StackPanel()
+            {
+                Height = 30,
+                Orientation = Orientation.Horizontal,
+            };
+
+            Line _ThicknessShow = new Line()
+            {
+                StrokeThickness = DefaultTools.ThicknessesTools[index],
+                Stroke = new SolidColorBrush(Colors.Black),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                // Margin = new Thickness(10,0,0,0),
+                X1 = 0,
+                Y1 = 0,
+                X2 = 100,
+                // Y2 = 0,
+            };
+
+            // TextBlock _ThicknessValue = new TextBlock()
+            // {
+            //     Text = DefaultTools.ThicknessesTools[index].ToString(),
+            //     Width = 20
+            // };
+            
+            // _stckThicknessAndText.Children.Add(_ThicknessValue);
+            _stckThicknessAndText.Children.Add(_ThicknessShow);
+            _btnThicknessAndText.Content = _stckThicknessAndText;
+            
+            return _btnThicknessAndText;
+        }
+
+        private void SelectThickness(object sender, RoutedEventArgs e, int index)
+        {
+            InformationForDraw.Thickness = DefaultTools.ThicknessesTools[index];
+        }
+
         private void SelectFillColor(object sender, RoutedEventArgs e, int index)
         {
             InformationForDraw.FillColor = DefaultTools.ColorsTools[index];
@@ -140,16 +195,14 @@ namespace MyPaint
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
-                    
                     // тут можно сократить объем кода
-                    Canvas canvas = sender as Canvas;
-                    if (canvas != null)
+                    // Canvas canvas = sender as Canvas;
+                    if (sender is Canvas canvas)
                     {
-                        // Point position = System.Windows.Forms.Cursor.Position;
 
                         Point position = e.GetPosition(canvas);
                         this.Title = $"{canvasForDrawing.Children.Count}";
-                        
+
                         InformationForDraw.xExit = position.X;
                         InformationForDraw.yExit = position.Y;
 
@@ -188,11 +241,15 @@ namespace MyPaint
             }
         }
 
-
         private void BtnRedo_OnClick(object sender, RoutedEventArgs e)
         {
             if (ShapeUndoStack.Count > 0)
                 canvasForDrawing.Children.Add(ShapeUndoStack.Pop());
+        }
+
+        private void BtnThicknesses_OnClick(object sender, EventArgs e)
+        {
+            popupThicknesses.IsOpen = !popupThicknesses.IsOpen;
         }
     }
 }

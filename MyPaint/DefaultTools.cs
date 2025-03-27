@@ -5,7 +5,7 @@ namespace MyPaint;
 public static class DefaultTools
 {
     public static List<Color> ColorsTools = new List<Color>();
-    public static List<int> LineThicknesses = new List<int>();
+    public static List<int> ThicknessesTools = new List<int>();
 
     static DefaultTools()
     {
@@ -28,11 +28,11 @@ public static class DefaultTools
 
     static void InitializeThicknesses()
     {
-        LineThicknesses.Add(2);
-        LineThicknesses.Add(4);
-        LineThicknesses.Add(6);
-        LineThicknesses.Add(8);
-        LineThicknesses.Add(10);
-        LineThicknesses.Sort();
+        ThicknessesTools.Add(2);
+        ThicknessesTools.Add(4);
+        ThicknessesTools.Add(6);
+        ThicknessesTools.Add(8);
+        ThicknessesTools.Add(10);
+        ThicknessesTools.Sort();
     }
 }

@@ -14,6 +14,8 @@ public static class InformationForDraw
 
     public static int StrokeThicknes = 2;
     public static int LineThickness = 2;
+
+    public static int Thickness = 1;
     
     public static bool isDrawed = false;
     public static bool IsPressed = false;

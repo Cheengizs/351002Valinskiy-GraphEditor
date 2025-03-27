@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:MyPaint"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="rowFileAndView"
@@ -104,7 +106,21 @@
             <!--         </StackPanel> -->
             <!--     </Grid> -->
             <!-- </Border> -->
+
             <UniformGrid x:Name="uniColors" Columns="5" Rows="3" />
+            
+            <Button 
+                x:Name="btnThicknesses"
+                Width="30"
+                Click="BtnThicknesses_OnClick"
+                />
+            
+            <Popup x:Name="popupThicknesses"
+                   PlacementTarget="{Binding ElementName=btnThicknesses}"
+                   Placement="Bottom"
+                   StaysOpen="False"
+                   PopupAnimation="Slide"/>
+            
             <Button 
                 x:Name="btnUndo"
                 Click="BtnUndo_OnClick"

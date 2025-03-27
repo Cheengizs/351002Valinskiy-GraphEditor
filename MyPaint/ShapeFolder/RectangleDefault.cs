@@ -98,7 +98,7 @@ public class RectangleDefault : ShapeAllKinds
 
         StrokeColor = InformationForDraw.StrokeColor;
         FillColor = InformationForDraw.FillColor;
-        StrokeThickness = InformationForDraw.StrokeThicknes;
+        StrokeThickness = InformationForDraw.Thickness;
     }
 
     public override void Draw()
