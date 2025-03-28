@@ -11,7 +11,11 @@ public class LineDefault : ShapeAllKinds
     public double X1
     {
         get { return x1; }
-        set { x1 = value; }
+        set
+        {
+            x1 = value;
+            (FigurePtr as Line).X1 = value;
+        }
     }
 
     public double X2
@@ -22,7 +26,7 @@ public class LineDefault : ShapeAllKinds
             x2 = value;
             
             // Canvas.SetLeft(FigurePtr, x2 > x1 ? x1 : x2);
-            (FigurePtr as Line).X2 = x2 > x1 ? x2 : x1;
+            (FigurePtr as Line).X2 = value;
             
         }
     }
@@ -30,7 +34,11 @@ public class LineDefault : ShapeAllKinds
     public double Y1
     {
         get { return y1; }
-        set { y1 = value; }
+        set
+        {
+            y1 = value;
+            (FigurePtr as Line).Y1 = value;
+        }
     }
 
     public double Y2
@@ -39,7 +47,8 @@ public class LineDefault : ShapeAllKinds
         set
         {
             y2 = value;
-            (FigurePtr as Line).Y2 = y2 > y1 ? y2 : y1;
+            
+            (FigurePtr as Line).Y2 = value;
             // Canvas.SetTop(FigurePtr, y2 > y1 ? y1 : y2);
             // FigurePtr.Height = Math.Abs(y2 - y1);
         }

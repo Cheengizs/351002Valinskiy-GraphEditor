@@ -264,6 +264,9 @@ namespace MyPaint
             InformationForDraw.IsPressed = false;
             InformationForDraw.isDrawed = false;
 
+            InformationForDraw.xEnter = InformationForDraw.xEnter; 
+
+            
             ShapeUndoStack.Clear();
             (sender as Canvas).ReleaseMouseCapture();
         }
