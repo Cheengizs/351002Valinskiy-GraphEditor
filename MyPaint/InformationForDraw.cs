@@ -12,8 +12,8 @@ public static class InformationForDraw
     public static Color FillColor = Colors.White;
     public static Color StrokeColor = Colors.Black;
 
-    public static int StrokeThicknes = 2;
-    public static int LineThickness = 2;
+    // public static int StrokeThickness = 2;
+    // public static int LineThickness = 2;
 
     public static int Thickness = 1;
     
@@ -21,4 +21,7 @@ public static class InformationForDraw
     public static bool IsPressed = false;
     
     public static int ColorNumber = 1;
+
+    public static ShapeAllKinds CurrShape;
+
 }

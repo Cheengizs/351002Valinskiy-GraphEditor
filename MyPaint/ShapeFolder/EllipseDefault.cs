@@ -1,6 +1,7 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
-using Color = System.Drawing.Color;
 
 namespace MyPaint;
 
@@ -17,7 +18,12 @@ public class EllipseDefault : ShapeAllKinds
     public double X2
     {
         get { return x2; }
-        set { x2 = value; }
+        set
+        {
+            x2 = value;
+            Canvas.SetLeft(FigurePtr, x2 > x1 ? x1 : x2);
+            FigurePtr.Width = Math.Abs(x2 - x1);
+        }
     }
 
     public double Y1
@@ -29,15 +35,24 @@ public class EllipseDefault : ShapeAllKinds
     public double Y2
     {
         get { return y2; }
-        set { y2 = value; }
+        set
+        {
+            y2 = value;
+            Canvas.SetTop(FigurePtr, y2 > y1 ? y1 : y2);
+            FigurePtr.Height = Math.Abs(y2 - y1);
+        }
     }
 
     public int strokeThickness;
 
     public int StrokeThickness
     {
-        get { return  strokeThickness; }
-        set { strokeThickness = value; }
+        get { return strokeThickness; }
+        set
+        {
+            strokeThickness = value;
+            FigurePtr.StrokeThickness = value;
+        }
     }
 
     public Color fillColor, strokeColor;
@@ -45,29 +60,43 @@ public class EllipseDefault : ShapeAllKinds
     public Color FillColor
     {
         get { return fillColor; }
-        set { fillColor = value; }
+        set
+        {
+            fillColor = value;
+            FigurePtr.Fill = new SolidColorBrush(value);
+        }
     }
 
     public Color StrokeColor
     {
         get { return strokeColor; }
-        set { strokeColor = value; }
+        set
+        {
+            strokeColor = value;
+            FigurePtr.Stroke = new SolidColorBrush(value);
+        }
     }
-
 
     public override Shape FigurePtr { get; set; }
 
     public override void UpdateData()
     {
-        //обновления данных, и из-за наличия get{}; set{};
-        // фигура будет сама перерисовываться
+        X1 = InformationForDraw.xEnter;
+        Y1 = InformationForDraw.yEnter;
+        X2 = InformationForDraw.xExit;
+        Y2 = InformationForDraw.yExit;
+
+        StrokeColor = InformationForDraw.StrokeColor;
+        FillColor = InformationForDraw.FillColor;
+        StrokeThickness = InformationForDraw.Thickness;
+        
     }
 
     public override void Draw()
     {
-        FigurePtr = new Path();
-        // функцию вывода EllipseGeometry
-        // не забыть накинуть свойство, которое отменяет поверхностное нажатие
-        // а то снова через костыли надо будет писать
+        FigurePtr = new Ellipse()
+        {
+            IsHitTestVisible = false,
+        };
     }
 }

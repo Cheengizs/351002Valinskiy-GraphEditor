@@ -50,11 +50,8 @@ public class RectangleDefault : ShapeAllKinds
         get { return strokeThickness; }
         set
         {
-            // if (value != strokeThickness)
-            // {
-                strokeThickness = value;
-                FigurePtr.StrokeThickness = value;
-            // }
+            strokeThickness = value;
+            FigurePtr.StrokeThickness = value;
         }
     }
 
@@ -65,11 +62,8 @@ public class RectangleDefault : ShapeAllKinds
         get { return fillColor; }
         set
         {
-            // if (value != fillColor)
-            // {
-                fillColor = value;
-                FigurePtr.Fill = new SolidColorBrush(value);
-            // }
+            fillColor = value;
+            FigurePtr.Fill = new SolidColorBrush(value);
         }
     }
 
@@ -78,14 +72,10 @@ public class RectangleDefault : ShapeAllKinds
         get { return strokeColor; }
         set
         {
-            // if (value != strokeColor)
-            // {
-                strokeColor = value;
-                FigurePtr.Stroke = new SolidColorBrush(value);
-            // }
+            strokeColor = value;
+            FigurePtr.Stroke = new SolidColorBrush(value);
         }
     }
-
 
     public override Shape FigurePtr { get; set; }
 
@@ -108,11 +98,10 @@ public class RectangleDefault : ShapeAllKinds
             IsHitTestVisible = false,
         };
     }
-    
+
     //
     // public Rectangle getFigure()
     // {
     //     return new Rectangle();
     // }
-    
 }

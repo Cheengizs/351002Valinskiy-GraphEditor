@@ -3,14 +3,16 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace MyPaint
 {
     public partial class MainWindow : Window
     {
-        public static List<ShapeAllKinds> ProbablyShapes = new List<ShapeAllKinds>();
+        // public static List<ShapeAllKinds> ProbablyShapes = new List<ShapeAllKinds>();
         public static List<Shape> ShapesOnCanvas = new List<Shape>();
-        public static int currPointer = -1;
         public static Stack<Shape> ShapeUndoStack = new Stack<Shape>();
 
         private Border? currSelectedFillColor;
@@ -40,14 +42,58 @@ namespace MyPaint
             }
         }
 
+        private Button? currSelectedShape = null;
+
+        private Button? CurrSelectedShape
+        {
+            get => currSelectedShape;
+            set
+            {
+                if (currSelectedShape != null)
+                    currSelectedShape.Background = Brushes.Transparent;
+                currSelectedShape = value;
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
-            ProbablyShapes.Add(new RectangleDefault() { });
             AddColorsToTools();
-            AddthicknessesToTools();
+            AddThicknessesToTools();
+            AddShapesToTools();
         }
+
+        private void AddShapesToTools()
+        {
+            for (int i = 0; i < DefaultTools.ShapesTools.Count; i++)
+                AddOneShapeToTools(i);
+        }
+
+        private void AddOneShapeToTools(int index)
+        {
+            Button _btnShape = new Button()
+            {
+                Background = Brushes.Transparent,
+                Content = DefaultTools.ShapesTools[index].GetType().Name,
+            };
+
+            if (index == 0)
+            {
+                CurrSelectedShape = _btnShape;
+            }
+            
+            _btnShape.Click += (s, e) => { SelectShape(s, e, index); };
+            
+            uniShapes.Children.Add(_btnShape);
+        }
+
+        private void SelectShape(object sender, RoutedEventArgs e, int index)
+        {
+            InformationForDraw.CurrShape = DefaultTools.ShapesTools[index];
+            CurrSelectedShape = (sender as Button);
+            CurrSelectedShape.Background = Brushes.CornflowerBlue;
+        }
+
 
         private void AddOneColorToTools(int indexOfColor)
         {
@@ -112,10 +158,10 @@ namespace MyPaint
                 AddOneColorToTools(i);
         }
 
-        private void AddthicknessesToTools()
+        private void AddThicknessesToTools()
         {
             StackPanel _ = new StackPanel();
-            
+
             for (int i = 0; i < DefaultTools.ThicknessesTools.Count(); i++)
                 _.Children.Add(AddOneThicknessToTools(i));
 
@@ -145,19 +191,11 @@ namespace MyPaint
                 X1 = 0,
                 Y1 = 0,
                 X2 = 100,
-                // Y2 = 0,
             };
 
-            // TextBlock _ThicknessValue = new TextBlock()
-            // {
-            //     Text = DefaultTools.ThicknessesTools[index].ToString(),
-            //     Width = 20
-            // };
-            
-            // _stckThicknessAndText.Children.Add(_ThicknessValue);
             _stckThicknessAndText.Children.Add(_ThicknessShow);
             _btnThicknessAndText.Content = _stckThicknessAndText;
-            
+
             return _btnThicknessAndText;
         }
 
@@ -199,7 +237,6 @@ namespace MyPaint
                     // Canvas canvas = sender as Canvas;
                     if (sender is Canvas canvas)
                     {
-
                         Point position = e.GetPosition(canvas);
                         this.Title = $"{canvasForDrawing.Children.Count}";
 
@@ -209,13 +246,12 @@ namespace MyPaint
                         if (!InformationForDraw.isDrawed)
                         {
                             InformationForDraw.isDrawed = true;
-                            ProbablyShapes[0].Draw();
-                            ShapesOnCanvas.Add(ProbablyShapes[0].FigurePtr);
+                            InformationForDraw.CurrShape.Draw();
+                            ShapesOnCanvas.Add(InformationForDraw.CurrShape.FigurePtr);
                             canvasForDrawing.Children.Add(ShapesOnCanvas.Last());
-                            currPointer++;
                         }
 
-                        ProbablyShapes[0].UpdateData();
+                        InformationForDraw.CurrShape.UpdateData();
                     }
                 }
             }
