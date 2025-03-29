@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.DirectoryServices.ActiveDirectory;
+using System.Windows.Media;
 
 namespace MyPaint;
 
@@ -19,6 +20,7 @@ public static class InformationForDraw
     
     public static bool isDrawed = false;
     public static bool IsPressed = false;
+    public static bool ShiftWasPressed = false;
     
     public static int ColorNumber = 1;
 

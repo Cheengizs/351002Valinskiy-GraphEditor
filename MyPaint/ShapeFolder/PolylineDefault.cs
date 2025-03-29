@@ -1,6 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Windows;
 using System.Windows.Shapes;
-
+using System.Windows.Media;
 
 namespace MyPaint;
 
@@ -14,7 +14,11 @@ public class PolylineDefault : ShapeAllKinds
     public int LineThickness
     {
         get { return lineThickness; }
-        set { lineThickness = value; }
+        set
+        {
+            lineThickness = value;
+            FigurePtr.StrokeThickness = value;
+        }
     }
 
     public Color lineColor;
@@ -22,26 +26,41 @@ public class PolylineDefault : ShapeAllKinds
     public Color LineColor
     {
         get { return lineColor; }
-        set { lineColor = value; }
+        set
+        {
+            lineColor = value;
+            FigurePtr.Stroke = new SolidColorBrush(value);
+        }
     }
 
     public override Shape FigurePtr { get; set; }
 
     public override void UpdateData()
     {
-        //обновления данных, и из-за наличия get{}; set{};
-        // фигура будет сама перерисовываться
+        (FigurePtr as Polyline).Points[^1] = new Point(InformationForDraw.xExit, InformationForDraw.yExit);
+
+        if (InformationForDraw.ShiftWasPressed)
+        {
+            (FigurePtr as Polyline).Points.Add(new Point(InformationForDraw.xExit, InformationForDraw.yExit));
+            InformationForDraw.ShiftWasPressed = false;
+        }
+
+        LineColor = InformationForDraw.StrokeColor;
+        LineThickness = InformationForDraw.Thickness;
         
     }
 
     public override void Draw()
     {
-        FigurePtr = new Path();
-        
-        
-        // функцию вывода EllipseGeometry
-        // не забыть накинуть свойство, которое отменяет поверхностное нажатие
-        // а то снова через костыли надо будет писать
+        FigurePtr = new Polyline()
+        {
+            IsHitTestVisible = false,
+            Points = new PointCollection
+            {
+                new Point(InformationForDraw.xEnter, InformationForDraw.yEnter),
+                new Point(InformationForDraw.xExit, InformationForDraw.yExit)
+            },
+        };
     }
 
 }

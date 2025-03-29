@@ -223,6 +223,7 @@ namespace MyPaint
         {
             (sender as Canvas).CaptureMouse();
             InformationForDraw.IsPressed = true;
+            InformationForDraw.ShiftWasPressed = false;
             InformationForDraw.xEnter = e.GetPosition(sender as Canvas).X;
             InformationForDraw.yEnter = e.GetPosition(sender as Canvas).Y;
         }
@@ -259,13 +260,12 @@ namespace MyPaint
 
         private void CanvasForDrawing_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+            InformationForDraw.isDrawed = false;
+            InformationForDraw.IsPressed = false;
             InformationForDraw.xExit = e.GetPosition(sender as Canvas).X;
             InformationForDraw.yExit = e.GetPosition(sender as Canvas).Y;
-            InformationForDraw.IsPressed = false;
-            InformationForDraw.isDrawed = false;
-
-            InformationForDraw.xEnter = InformationForDraw.xEnter; 
-
+            
+            InformationForDraw.ShiftWasPressed = false;
             
             ShapeUndoStack.Clear();
             (sender as Canvas).ReleaseMouseCapture();
@@ -289,6 +289,14 @@ namespace MyPaint
         private void BtnThicknesses_OnClick(object sender, EventArgs e)
         {
             popupThicknesses.IsOpen = !popupThicknesses.IsOpen;
+        }
+
+        private void MainWindow_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.LeftShift || e.Key == Key.RightShift)
+                InformationForDraw.ShiftWasPressed = true;
+            
+            
         }
     }
 }
