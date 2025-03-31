@@ -8,7 +8,7 @@ public static class Undo_Redo
 
     public static void Redo()
     {
-        if (Undo_Redo.ShapeUndoStack.Count > 0)
+        if (ShapeUndoStack.Count > 0)
             InformationForDraw.CanvasForDrawing.Children.Add(Undo_Redo.ShapeUndoStack.Pop());
     }
 
@@ -16,7 +16,7 @@ public static class Undo_Redo
     {
         if (InformationForDraw.CanvasForDrawing.Children.Count > 0)
         {
-            Undo_Redo.ShapeUndoStack.Push((Shape)InformationForDraw.CanvasForDrawing.Children[InformationForDraw.CanvasForDrawing.Children.Count - 1]);
+            ShapeUndoStack.Push((Shape)InformationForDraw.CanvasForDrawing.Children[InformationForDraw.CanvasForDrawing.Children.Count - 1]);
             InformationForDraw.CanvasForDrawing.Children.RemoveAt(InformationForDraw.CanvasForDrawing.Children.Count - 1);
         }
     }

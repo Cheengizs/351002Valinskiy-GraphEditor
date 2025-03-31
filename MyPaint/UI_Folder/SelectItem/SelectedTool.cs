@@ -7,8 +7,8 @@ namespace MyPaint;
 public static class SelectedTool
 {
     private static Border? currSelectedFillColor;
-        
-    public static  Border? CurrSelectedFillColor
+
+    public static Border? CurrSelectedFillColor
     {
         get => currSelectedFillColor;
         set
@@ -19,10 +19,10 @@ public static class SelectedTool
             currSelectedFillColor = value;
         }
     }
-    
-    private static  Border? currSelectedStrokeColor = null;
 
-    public static  Border? CurrSelectedStrokeColor
+    private static Border? currSelectedStrokeColor = null;
+
+    public static Border? CurrSelectedStrokeColor
     {
         get => currSelectedStrokeColor;
         set
@@ -33,9 +33,9 @@ public static class SelectedTool
         }
     }
 
-    private static  Button? currSelectedShape = null;
+    private static Button? currSelectedShape = null;
 
-    public static  Button? CurrSelectedShape
+    public static Button? CurrSelectedShape
     {
         get => currSelectedShape;
         set
@@ -45,9 +45,4 @@ public static class SelectedTool
             currSelectedShape = value;
         }
     }
-    
-    
-    
-    
-    
 }
