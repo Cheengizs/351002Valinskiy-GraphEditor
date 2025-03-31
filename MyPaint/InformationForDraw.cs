@@ -1,5 +1,6 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-using System.Windows.Media;
+﻿using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace MyPaint;
 
@@ -10,12 +11,9 @@ public static class InformationForDraw
     public static double xExit;
     public static double yExit;
 
-    public static Color FillColor = Colors.White;
-    public static Color StrokeColor = Colors.Black;
-
-    // public static int StrokeThickness = 2;
-    // public static int LineThickness = 2;
-
+    public static Color FillColor;
+    public static Color StrokeColor;
+    
     public static int Thickness = 1;
     
     public static bool isDrawed = false;
@@ -24,6 +22,11 @@ public static class InformationForDraw
     
     public static int ColorNumber = 1;
 
-    public static ShapeAllKinds CurrShape;
+    public static ShapeAllKinds CurrShape = new EllipseDefault();
 
+    public static Canvas? CanvasForDrawing;
+
+    public static UniformGrid UniColors;
+
+    public static Popup PopupThicknesses;
 }

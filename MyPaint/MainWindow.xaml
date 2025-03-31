@@ -142,6 +142,7 @@
             MouseDown="CanvasForDrawing_OnMouseDown"
             MouseMove="CanvasForDrawing_OnMouseMove"
             MouseUp="CanvasForDrawing_OnMouseUp">
+            
         </Canvas>
     </Grid>
 </Window>

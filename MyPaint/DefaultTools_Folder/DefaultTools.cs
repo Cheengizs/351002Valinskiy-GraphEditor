@@ -27,6 +27,8 @@ public static class DefaultTools
         ColorsTools.Add(Colors.CornflowerBlue);
         ColorsTools.Add(Colors.Blue);
         ColorsTools.Add(Colors.Purple);
+        ColorsTools.Add(Colors.Transparent);
+        ColorsTools.Add(Colors.Gray);
     }
 
     static void InitializeThicknesses()

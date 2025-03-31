@@ -87,7 +87,7 @@ public class LineDefault : ShapeAllKinds
         Y2 = InformationForDraw.yExit;
 
         LineThickness = InformationForDraw.Thickness;
-        LineColor = InformationForDraw.FillColor;
+        LineColor = InformationForDraw.StrokeColor;
     }
 
     public override void Draw()
