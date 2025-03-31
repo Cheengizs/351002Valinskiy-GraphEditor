@@ -1,9 +1,6 @@
-﻿using System.Windows.Media;
-using System.Windows.Shapes;
-
+﻿using System.Windows.Shapes;
 
 namespace MyPaint;
-
 
 public static class Undo_Redo
 {

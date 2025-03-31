@@ -9,7 +9,7 @@ public static class ShowTools
 {
     public static void AddColorsToTools()
     {
-        for (int i = 0; i < DefaultTools.ColorsTools.Count() - 1; i++)
+        for (int i = 0; i < DefaultTools.ColorsTools.Count(); i++)
             AddOneColorToTools(i);
     }
 
@@ -101,7 +101,7 @@ public static class ShowTools
             SelectItemMethods.SelectShape(s, e, index);
         };
 
-        InformationForDraw.UniColors.Children.Add(_btnShape);
+        InformationForDraw.UniShapes.Children.Add(_btnShape);
     }
 
     public static void AddThicknessesToTools()

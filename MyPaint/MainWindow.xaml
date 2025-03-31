@@ -138,11 +138,7 @@
             ZIndex="0"
             Grid.Row="2"
             Background="Transparent"
-            ClipToBounds="True"
-            MouseDown="CanvasForDrawing_OnMouseDown"
-            MouseMove="CanvasForDrawing_OnMouseMove"
-            MouseUp="CanvasForDrawing_OnMouseUp">
-            
+            ClipToBounds="True">
         </Canvas>
     </Grid>
 </Window>

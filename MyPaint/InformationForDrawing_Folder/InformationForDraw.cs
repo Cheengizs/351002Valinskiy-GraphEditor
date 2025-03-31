@@ -27,6 +27,7 @@ public static class InformationForDraw
     public static Canvas? CanvasForDrawing;
 
     public static UniformGrid UniColors;
+    public static UniformGrid UniShapes;
 
     public static Popup PopupThicknesses;
 }
