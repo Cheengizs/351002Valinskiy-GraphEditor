@@ -15,6 +15,8 @@ namespace MyPaint
                 InformationForDraw.CanvasForDrawing.MouseMove += DrawingOnCanvas.CanvasForDrawing_OnMouseMove;
             }
 
+            
+            
             InformationForDraw.PopupThicknesses = popupThicknesses;
             InformationForDraw.UniColors = uniColors;
             InformationForDraw.UniShapes = uniShapes;
@@ -24,6 +26,15 @@ namespace MyPaint
             ShowTools.AddShapesToTools();
         }
 
+        private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Undo_Redo.Undo();
+        }
+
+        private void RedoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Undo_Redo.Redo();
+        }
         
     }
 }

@@ -17,7 +17,8 @@ public partial class MainWindow : Window
 
     private void BtnThicknesses_OnClick(object sender, EventArgs e)
     {
-        popupThicknesses.IsOpen = !popupThicknesses.IsOpen;
+        InformationForDraw.PopupThicknesses.IsOpen 
+            = !InformationForDraw.PopupThicknesses.IsOpen;
     }
 
     private void MainWindow_OnKeyUp(object sender, KeyEventArgs e)

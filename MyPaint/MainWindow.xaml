@@ -8,35 +8,58 @@
         Title="MainWindow" Height="450" Width="800"
         KeyUp="MainWindow_OnKeyUp">
 
-
+    <Window.CommandBindings>
+        <CommandBinding Command="Undo"
+                        Executed="UndoCommandBinding_Executed"/>
+        <CommandBinding Command="Redo"
+                        Executed="RedoCommandBinding_Executed"/>
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}" />
+        <KeyBinding Key="Y" Modifiers="Control" Command="{Binding Redo}"/>
+    </Window.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="rowFileAndView"
-                           Height="20">
-            </RowDefinition>
+                           Height="20"/>
             <RowDefinition x:Name="rowTools"
-                           Height="70">
-            </RowDefinition>
+                           Height="70"/>
             <RowDefinition x:Name="rowDrawArea"
-                           Height="*">
-            </RowDefinition>
+                           Height="*"/>
+            <!-- <RowDefinition -->
+            <!--     Height="20"/> -->
         </Grid.RowDefinitions>
-
-        <StackPanel
-            x:Name="stckFileAndView"
-            Grid.Row="0"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnFileSettings"
-                Content="Файл"
-                Height="20" />
-            <Button
-                x:Name="btnMain"
-                Content="Главная" />
-            <Button
-                x:Name="btnView"
-                Content="Вид" />
-        </StackPanel>
+        
+        <Menu Grid.Row="0" DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать"/>
+                <MenuItem Header="Открыть"/>
+                <MenuItem Header="Сохранить"/>
+                <MenuItem Header="Сохранить как"/>
+                <Separator/>
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+            <MenuItem Header="Главная"/>
+            <MenuItem Header="Вид"/>
+        </Menu>
+        
+        <!-- <StackPanel -->
+        <!--     x:Name="stckFileAndView" -->
+        <!--     Grid.Row="0" -->
+        <!--     Orientation="Horizontal"> -->
+        <!--     <Button -->
+        <!--         x:Name="btnFileSettings" -->
+        <!--         Content="Файл" -->
+        <!--         Height="20" /> -->
+        <!--     <Button -->
+        <!--         x:Name="btnMain" -->
+        <!--         Content="Главная" /> -->
+        <!--     <Button -->
+        <!--         x:Name="btnView" -->
+        <!--         Content="Вид" /> -->
+        <!-- </StackPanel> -->
 
         <StackPanel
             x:Name="stckMainTools"
