@@ -26,15 +26,7 @@ namespace MyPaint
             ShowTools.AddShapesToTools();
         }
 
-        private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Undo_Redo.Undo();
-        }
-
-        private void RedoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Undo_Redo.Redo();
-        }
+        
         
     }
 }

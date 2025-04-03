@@ -26,4 +26,14 @@ public partial class MainWindow : Window
         if (e.Key == Key.LeftShift || e.Key == Key.RightShift)
             InformationForDraw.ShiftWasPressed = true;
     }
+    
+    private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        Undo_Redo.Undo();
+    }
+
+    private void RedoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        Undo_Redo.Redo();
+    }
 }

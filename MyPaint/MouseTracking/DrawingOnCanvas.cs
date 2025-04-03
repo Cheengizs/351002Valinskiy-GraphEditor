@@ -18,10 +18,6 @@ public static class DrawingOnCanvas
     {
         if (InformationForDraw.IsPressed)
         {
-            // if (e.LeftButton == MouseButtonState.Pressed)
-            // {
-            // тут можно сократить объем кода
-            // Canvas canvas = sender as Canvas;
             if (sender is Canvas canvas)
             {
                 InformationForDraw.xExit = e.GetPosition(canvas).X;

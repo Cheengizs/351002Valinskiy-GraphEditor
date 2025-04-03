@@ -39,6 +39,8 @@
                 <MenuItem Header="Сохранить"/>
                 <MenuItem Header="Сохранить как"/>
                 <Separator/>
+                <MenuItem Header="Добавить плагин"/>
+                <Separator/>
                 <MenuItem Header="О программе"/>
             </MenuItem>
             <MenuItem Header="Главная"/>
