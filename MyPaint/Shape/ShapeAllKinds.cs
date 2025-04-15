@@ -5,6 +5,7 @@ namespace MyPaint;
 public abstract class ShapeAllKinds
 {
     public abstract Shape FigurePtr { get; set; }
-    public abstract void UpdateData();
-    public abstract void Draw();
+    public abstract void UpdateData(InformationForDraw informationForDraw);
+    public abstract void Draw(InformationForDraw informationForDraw);
+    
 }

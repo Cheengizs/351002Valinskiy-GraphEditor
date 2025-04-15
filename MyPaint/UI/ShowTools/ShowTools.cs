@@ -5,15 +5,19 @@ using System.Windows.Media;
 
 namespace MyPaint;
 
-public static class ShowTools
+public class ShowTools
 {
-    public static void AddColorsToTools()
+    public InformationForDraw informationForDraw;
+    public SelectItemMethods selectItemMethods;
+    public SelectedTool selectedTool;
+    
+    public void AddColorsToTools()
     {
         for (int i = 0; i < DefaultTools.ColorsTools.Count(); i++)
             AddOneColorToTools(i);
     }
 
-    private static void AddOneColorToTools(int indexOfColor)
+    private void AddOneColorToTools(int indexOfColor)
     {
         Border _borderForStroke = new Border()
         {
@@ -33,14 +37,14 @@ public static class ShowTools
         switch (indexOfColor)
         {
             case 0:
-                InformationForDraw.StrokeColor = DefaultTools.ColorsTools[indexOfColor];
+                informationForDraw.StrokeColor = DefaultTools.ColorsTools[indexOfColor];
                 _borderForStroke.BorderBrush = Brushes.CornflowerBlue;
-                SelectedTool.CurrSelectedStrokeColor = _borderForStroke;
+                selectedTool.CurrSelectedStrokeColor = _borderForStroke;
                 break;
             case 1:
-                InformationForDraw.FillColor = DefaultTools.ColorsTools[indexOfColor];
+                informationForDraw.FillColor = DefaultTools.ColorsTools[indexOfColor];
                 _borderForFill.BorderBrush = Brushes.Maroon;
-                SelectedTool.CurrSelectedFillColor = _borderForFill;
+                selectedTool.CurrSelectedFillColor = _borderForFill;
                 break;
         }
 
@@ -67,21 +71,21 @@ public static class ShowTools
         _borderForStroke.Child = _borderForFill;
 
         _borderForFill.MouseLeftButtonDown += (s, e) => 
-            { SelectItemMethods.SelectFillColor(s, e, indexOfColor); };
+            { selectItemMethods.SelectFillColor(s, e, indexOfColor); };
 
         _borderForStroke.MouseRightButtonDown += (s, e) => 
-            { SelectItemMethods.SelectStrokeColor(s, e, indexOfColor); };
+            { selectItemMethods.SelectStrokeColor(s, e, indexOfColor); };
         
-        InformationForDraw.UniColors.Children.Add(_borderForStroke);
+        informationForDraw.UniColors.Children.Add(_borderForStroke);
     }
 
-    public static void AddShapesToTools()
+    public void AddShapesToTools()
     {
         for (int i = 0; i < DefaultTools.ShapesTools.Count; i++)
             AddOneShapeToTools(i);
     }
 
-    private static void AddOneShapeToTools(int index)
+    private void AddOneShapeToTools(int index)
     {
         Button _btnShape = new Button()
         {
@@ -92,34 +96,34 @@ public static class ShowTools
         if (index == 0)
         {
             _btnShape.Background = Brushes.CornflowerBlue;
-            SelectedTool.CurrSelectedShape = _btnShape;
-            InformationForDraw.CurrShape = DefaultTools.ShapesTools[index];
+            selectedTool.CurrSelectedShape = _btnShape;
+            informationForDraw.CurrShape = DefaultTools.ShapesTools[index];
         }
 
         _btnShape.Click += (s, e) =>
         {
-            SelectItemMethods.SelectShape(s, e, index);
+            selectItemMethods.SelectShape(s, e, index);
         };
 
-        InformationForDraw.UniShapes.Children.Add(_btnShape);
+        informationForDraw.UniShapes.Children.Add(_btnShape);
     }
 
-    public static void AddThicknessesToTools()
+    public void AddThicknessesToTools()
     {
         StackPanel _ = new StackPanel();
 
         for (int i = 0; i < DefaultTools.ThicknessesTools.Count(); i++)
             _.Children.Add(AddOneThicknessToTools(i));
 
-        InformationForDraw.PopupThicknesses.Child = _;
+        informationForDraw.PopupThicknesses.Child = _;
     }
 
-    private static Button AddOneThicknessToTools(int index)
+    private Button AddOneThicknessToTools(int index)
     {
         Button _btnThicknessAndText = new Button();
 
         _btnThicknessAndText.Click += (s, e) =>
-            SelectItemMethods.SelectThickness(s, e, index);
+            selectItemMethods.SelectThickness(s, e, index);
 
         StackPanel _stckThicknessAndText = new StackPanel()
         {

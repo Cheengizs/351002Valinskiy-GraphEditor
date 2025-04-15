@@ -51,30 +51,30 @@ public class PolygonDefault : ShapeAllKinds
 
     public override Shape FigurePtr { get; set; }
 
-    public override void UpdateData()
+    public override void UpdateData(InformationForDraw informationForDraw)
     {
-        (FigurePtr as Polygon).Points[^1] = new Point(InformationForDraw.xExit, InformationForDraw.yExit);
+        (FigurePtr as Polygon).Points[^1] = new Point(informationForDraw.xExit, informationForDraw.yExit);
 
-        if (InformationForDraw.ShiftWasPressed)
+        if (informationForDraw.ShiftWasPressed)
         {
-            (FigurePtr as Polygon).Points.Add(new Point(InformationForDraw.xExit, InformationForDraw.yExit));
-            InformationForDraw.ShiftWasPressed = false;
+            (FigurePtr as Polygon).Points.Add(new Point(informationForDraw.xExit, informationForDraw.yExit));
+            informationForDraw.ShiftWasPressed = false;
         }
 
-        FillColor = InformationForDraw.FillColor;
-        StrokeColor = InformationForDraw.StrokeColor;
-        StrokeThickness = InformationForDraw.Thickness;
+        FillColor = informationForDraw.FillColor;
+        StrokeColor = informationForDraw.StrokeColor;
+        StrokeThickness = informationForDraw.Thickness;
     }
 
-    public override void Draw()
+    public override void Draw(InformationForDraw informationForDraw)
     {
         FigurePtr = new Polygon()
         {
             IsHitTestVisible = false,
             Points = new PointCollection
             {
-                new Point(InformationForDraw.xEnter, InformationForDraw.yEnter),
-                new Point(InformationForDraw.xExit, InformationForDraw.yExit)
+                new Point(informationForDraw.xEnter, informationForDraw.yEnter),
+                new Point(informationForDraw.xExit, informationForDraw.yExit)
             },
         };
 

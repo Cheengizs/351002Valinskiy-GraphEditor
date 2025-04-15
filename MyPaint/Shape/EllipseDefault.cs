@@ -79,20 +79,20 @@ public class EllipseDefault : ShapeAllKinds
 
     public override Shape FigurePtr { get; set; }
 
-    public override void UpdateData()
+    public override void UpdateData(InformationForDraw informationForDraw)
     {
-        X1 = InformationForDraw.xEnter;
-        Y1 = InformationForDraw.yEnter;
-        X2 = InformationForDraw.xExit;
-        Y2 = InformationForDraw.yExit;
+        X1 = informationForDraw.xEnter;
+        Y1 = informationForDraw.yEnter;
+        X2 = informationForDraw.xExit;
+        Y2 = informationForDraw.yExit;
 
-        StrokeColor = InformationForDraw.StrokeColor;
-        FillColor = InformationForDraw.FillColor;
-        StrokeThickness = InformationForDraw.Thickness;
+        StrokeColor = informationForDraw.StrokeColor;
+        FillColor = informationForDraw.FillColor;
+        StrokeThickness = informationForDraw.Thickness;
         
     }
 
-    public override void Draw()
+    public override void Draw(InformationForDraw informationForDraw)
     {
         FigurePtr = new Ellipse()
         {

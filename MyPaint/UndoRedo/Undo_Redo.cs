@@ -2,22 +2,24 @@
 
 namespace MyPaint;
 
-public static class Undo_Redo
+public class Undo_Redo
 {
-    public static Stack<Shape> ShapeUndoStack = new Stack<Shape>();
-
-    public static void Redo()
+    public Stack<Shape> ShapeUndoStack = new Stack<Shape>();
+    public InformationForDraw informationForDraw { get; set; }
+    
+    
+    public void Redo()
     {
         if (ShapeUndoStack.Count > 0)
-            InformationForDraw.CanvasForDrawing.Children.Add(Undo_Redo.ShapeUndoStack.Pop());
+            informationForDraw.CanvasForDrawing.Children.Add(ShapeUndoStack.Pop());
     }
 
-    public static void Undo()
+    public void Undo()
     {
-        if (InformationForDraw.CanvasForDrawing.Children.Count > 0)
+        if (informationForDraw.CanvasForDrawing.Children.Count > 0)
         {
-            ShapeUndoStack.Push((Shape)InformationForDraw.CanvasForDrawing.Children[InformationForDraw.CanvasForDrawing.Children.Count - 1]);
-            InformationForDraw.CanvasForDrawing.Children.RemoveAt(InformationForDraw.CanvasForDrawing.Children.Count - 1);
+            ShapeUndoStack.Push((Shape)informationForDraw.CanvasForDrawing.Children[informationForDraw.CanvasForDrawing.Children.Count - 1]);
+            informationForDraw.CanvasForDrawing.Children.RemoveAt(informationForDraw.CanvasForDrawing.Children.Count - 1);
         }
     }
     

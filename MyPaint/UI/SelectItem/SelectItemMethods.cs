@@ -4,33 +4,34 @@ using System.Windows;
 
 namespace MyPaint;
 
-public static class SelectItemMethods
+public class SelectItemMethods
 {
-    public static void SelectThickness(object sender, RoutedEventArgs e, int index)
+    public InformationForDraw informationForDraw;
+    public SelectedTool selectedTool;
+    
+    public void SelectThickness(object sender, RoutedEventArgs e, int index)
     {
-        InformationForDraw.Thickness = DefaultTools.ThicknessesTools[index];
+        informationForDraw.Thickness = DefaultTools.ThicknessesTools[index];
     }
 
-    public static void SelectFillColor(object sender, RoutedEventArgs e, int index)
+    public void SelectFillColor(object sender, RoutedEventArgs e, int index)
     {
-        InformationForDraw.FillColor = DefaultTools.ColorsTools[index];
-        SelectedTool.CurrSelectedFillColor = (sender as Border);
-        SelectedTool.CurrSelectedFillColor.BorderBrush = Brushes.Maroon;
+        informationForDraw.FillColor = DefaultTools.ColorsTools[index];
+        selectedTool.CurrSelectedFillColor = (sender as Border);
+        selectedTool.CurrSelectedFillColor.BorderBrush = Brushes.Maroon;
     }
 
-    public static void SelectStrokeColor(object sender, RoutedEventArgs e, int index)
+    public void SelectStrokeColor(object sender, RoutedEventArgs e, int index)
     {
-        InformationForDraw.StrokeColor = DefaultTools.ColorsTools[index];
-        SelectedTool.CurrSelectedStrokeColor = (sender as Border);
-        SelectedTool. CurrSelectedStrokeColor.BorderBrush = Brushes.CornflowerBlue;
+        informationForDraw.StrokeColor = DefaultTools.ColorsTools[index];
+        selectedTool.CurrSelectedStrokeColor = (sender as Border);
+        selectedTool.CurrSelectedStrokeColor.BorderBrush = Brushes.CornflowerBlue;
     }
 
-    public static void SelectShape(object sender, RoutedEventArgs e, int index)
+    public void SelectShape(object sender, RoutedEventArgs e, int index)
     {
-        InformationForDraw.CurrShape = DefaultTools.ShapesTools[index];
-        SelectedTool.CurrSelectedShape = (sender as Button);
-        SelectedTool.CurrSelectedShape.Background = Brushes.CornflowerBlue;
+        informationForDraw.CurrShape = DefaultTools.ShapesTools[index];
+        selectedTool.CurrSelectedShape = (sender as Button);
+        selectedTool.CurrSelectedShape.Background = Brushes.CornflowerBlue;
     }
-
-
 }
