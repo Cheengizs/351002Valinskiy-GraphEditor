@@ -17,14 +17,14 @@ public partial class MainWindow : Window
 
     private void BtnThicknesses_OnClick(object sender, EventArgs e)
     {
-        informationForDraw.PopupThicknesses.IsOpen 
-            = !informationForDraw.PopupThicknesses.IsOpen;
+        InformationForDraw.PopupThicknesses.IsOpen 
+            = !InformationForDraw.PopupThicknesses.IsOpen;
     }
 
     private void MainWindow_OnKeyUp(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.LeftShift || e.Key == Key.RightShift)
-            informationForDraw.ShiftWasPressed = true;
+            InformationForDraw.ShiftWasPressed = true;
     }
     
     private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

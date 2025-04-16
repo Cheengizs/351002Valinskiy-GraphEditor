@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using Newtonsoft.Json;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -9,12 +9,14 @@ public class EllipseDefault : ShapeAllKinds
 {
     public double x1, y1, x2, y2;
 
+    [JsonIgnore]
     public double X1
     {
         get { return x1; }
         set { x1 = value; }
     }
 
+    [JsonIgnore]
     public double X2
     {
         get { return x2; }
@@ -26,12 +28,14 @@ public class EllipseDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public double Y1
     {
         get { return y1; }
         set { y1 = value; }
     }
 
+    [JsonIgnore]
     public double Y2
     {
         get { return y2; }
@@ -45,6 +49,7 @@ public class EllipseDefault : ShapeAllKinds
 
     public int strokeThickness;
 
+    [JsonIgnore]
     public int StrokeThickness
     {
         get { return strokeThickness; }
@@ -57,6 +62,7 @@ public class EllipseDefault : ShapeAllKinds
 
     public Color fillColor, strokeColor;
 
+    [JsonIgnore]
     public Color FillColor
     {
         get { return fillColor; }
@@ -67,6 +73,7 @@ public class EllipseDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public Color StrokeColor
     {
         get { return strokeColor; }
@@ -77,7 +84,7 @@ public class EllipseDefault : ShapeAllKinds
         }
     }
 
-    public override Shape FigurePtr { get; set; }
+    [JsonIgnore] public override Shape FigurePtr { get; set; }
 
     public override void UpdateData(InformationForDraw informationForDraw)
     {
@@ -89,7 +96,6 @@ public class EllipseDefault : ShapeAllKinds
         StrokeColor = informationForDraw.StrokeColor;
         FillColor = informationForDraw.FillColor;
         StrokeThickness = informationForDraw.Thickness;
-        
     }
 
     public override void Draw(InformationForDraw informationForDraw)
@@ -98,5 +104,26 @@ public class EllipseDefault : ShapeAllKinds
         {
             IsHitTestVisible = false,
         };
+    }
+
+    public override void Draw(Canvas canvas)
+    {
+        FigurePtr = new Ellipse()
+        {
+            IsHitTestVisible = false,
+        };
+
+        // рисовка фигуры
+        {
+            X1 = x1;
+            X2 = x2;
+            Y1 = y1;
+            Y2 = y2;
+            StrokeColor = strokeColor;
+            FillColor = fillColor;
+            StrokeThickness = strokeThickness;
+        }
+
+        canvas.Children.Add(FigurePtr);
     }
 }

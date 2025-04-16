@@ -31,7 +31,7 @@ public class SelectItemMethods
 
     public void SelectShape(object sender, RoutedEventArgs e, int index)
     {
-        informationForDraw.CurrShape = defaultTools.ShapesTools[index];
+        InformationForDraw.CurrShapeType = defaultTools.ShapesTools[index];
         selectedTool.CurrSelectedShape = (sender as Button);
         selectedTool.CurrSelectedShape.Background = Brushes.CornflowerBlue;
     }

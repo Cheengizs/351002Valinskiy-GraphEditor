@@ -1,21 +1,18 @@
 ﻿using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using Newtonsoft.Json;
 
 namespace MyPaint;
 
 public class PolygonDefault : ShapeAllKinds
 {
-    // Продумать как отрисовывать многоугольник
-    // 1) рисовать праввильный многоугольник 
-    // 2) Если чел держит shift, то добавлять новую вершину 
-    // ---- Чел нажал шифт --> добавление новой вершины
-
-    public double[] points;
+    public Point[] points;
 
     public int strokeThickness;
 
+    [JsonIgnore]
     public int StrokeThickness
     {
         get { return strokeThickness; }
@@ -28,6 +25,7 @@ public class PolygonDefault : ShapeAllKinds
 
     public Color fillColor, strokeColor;
 
+    [JsonIgnore]
     public Color FillColor
     {
         get { return fillColor; }
@@ -38,6 +36,7 @@ public class PolygonDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public Color StrokeColor
     {
         get { return strokeColor; }
@@ -48,17 +47,17 @@ public class PolygonDefault : ShapeAllKinds
         }
     }
 
-
-    public override Shape FigurePtr { get; set; }
+    [JsonIgnore] public override Shape FigurePtr { get; set; }
 
     public override void UpdateData(InformationForDraw informationForDraw)
     {
         (FigurePtr as Polygon).Points[^1] = new Point(informationForDraw.xExit, informationForDraw.yExit);
+        points = (FigurePtr as Polygon).Points.ToArray();
 
-        if (informationForDraw.ShiftWasPressed)
+        if (InformationForDraw.ShiftWasPressed)
         {
             (FigurePtr as Polygon).Points.Add(new Point(informationForDraw.xExit, informationForDraw.yExit));
-            informationForDraw.ShiftWasPressed = false;
+            InformationForDraw.ShiftWasPressed = false;
         }
 
         FillColor = informationForDraw.FillColor;
@@ -82,5 +81,23 @@ public class PolygonDefault : ShapeAllKinds
         // функцию вывода EllipseGeometry
         // не забыть накинуть свойство, которое отменяет поверхностное нажатие
         // а то снова через костыли надо будет писать
+    }
+
+    public override void Draw(Canvas canvas)
+    {
+        FigurePtr = new Polygon()
+        {
+            IsHitTestVisible = false,
+        };
+
+        // отрисовОчка
+        {
+            (FigurePtr as Polygon).Points = new PointCollection(points);
+            FillColor = fillColor;
+            StrokeColor = strokeColor;
+            StrokeThickness = strokeThickness;
+        }
+
+        canvas.Children.Add(FigurePtr);
     }
 }

@@ -1,55 +1,58 @@
-﻿using System.Windows;
+﻿using Newtonsoft.Json;
+using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace MyPaint;
 
 public class PolylineDefault : ShapeAllKinds
 {
-    
-    public double[] points;
-    
-    public int lineThickness;
+    public Point[] points;
 
-    public int LineThickness
+    public int strokeThickness;
+
+    [JsonIgnore]
+    public int StrokeThickness
     {
-        get { return lineThickness; }
+        get { return strokeThickness; }
         set
         {
-            lineThickness = value;
+            strokeThickness = value;
             FigurePtr.StrokeThickness = value;
         }
     }
 
-    public Color lineColor;
+    public Color strokeColor;
 
-    public Color LineColor
+    [JsonIgnore]
+    public Color StrokeColor
     {
-        get { return lineColor; }
+        get { return strokeColor; }
         set
         {
-            lineColor = value;
+            strokeColor = value;
             FigurePtr.Stroke = new SolidColorBrush(value);
         }
     }
 
-    public override Shape FigurePtr { get; set; }
+    [JsonIgnore] public override Shape FigurePtr { get; set; }
 
     public override void UpdateData(InformationForDraw informationForDraw)
     {
-        if(informationForDraw.isDrawed)
-        
-        (FigurePtr as Polyline).Points[^1] = new Point(informationForDraw.xExit, informationForDraw.yExit);
+        if (InformationForDraw.isDrawed)
 
-        if (informationForDraw.ShiftWasPressed)
+            (FigurePtr as Polyline).Points[^1] = new Point(informationForDraw.xExit, informationForDraw.yExit);
+        points = (FigurePtr as Polyline).Points.ToArray();
+
+        if (InformationForDraw.ShiftWasPressed)
         {
             (FigurePtr as Polyline).Points.Add(new Point(informationForDraw.xExit, informationForDraw.yExit));
-            informationForDraw.ShiftWasPressed = false;
+            InformationForDraw.ShiftWasPressed = false;
         }
 
-        LineColor = informationForDraw.StrokeColor;
-        LineThickness = informationForDraw.Thickness;
-        
+        StrokeColor = informationForDraw.StrokeColor;
+        StrokeThickness = informationForDraw.Thickness;
     }
 
     public override void Draw(InformationForDraw informationForDraw)
@@ -65,4 +68,30 @@ public class PolylineDefault : ShapeAllKinds
         };
     }
 
+    // public override DTOShape GetDTOShape()
+    // {
+    //     return new DTOShape()
+    //     {
+    //         Points = (FigurePtr as Polyline).Points.ToArray(),
+    //         StrokeColor = StrokeColor,
+    //         Type = this.GetType()
+    //     };
+    // }
+
+
+    public override void Draw(Canvas canvas)
+    {
+        FigurePtr = new Polyline()
+        {
+            IsHitTestVisible = false,
+        };
+        // отрисовОчка
+        {
+            (FigurePtr as Polyline).Points = new PointCollection(points);
+            StrokeColor = strokeColor;
+            StrokeThickness = strokeThickness;
+        }
+
+        canvas.Children.Add(FigurePtr);
+    }
 }

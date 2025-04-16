@@ -34,10 +34,9 @@
         
         <Menu Grid.Row="0" DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Создать"/>
-                <MenuItem Header="Открыть"/>
-                <MenuItem Header="Сохранить"/>
-                <MenuItem Header="Сохранить как"/>
+                <MenuItem x:Name="menuOpenFile" Header="Открыть"/>
+                <MenuItem x:Name="menuSaveFile" Header="Сохранить"/>
+                <MenuItem x:Name="menuSaveAs" Header="Сохранить как"/>
                 <Separator/>
                 <MenuItem Header="Добавить плагин"/>
                 <Separator/>

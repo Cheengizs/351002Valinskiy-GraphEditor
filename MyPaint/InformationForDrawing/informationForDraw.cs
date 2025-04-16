@@ -16,18 +16,19 @@ public class InformationForDraw
     
     public int Thickness = 1;
     
-    public bool isDrawed = false;
-    public bool IsPressed = false;
-    public bool ShiftWasPressed = false;
+    public static bool isDrawed = false;
+    public static bool IsPressed = false;
+    public static bool ShiftWasPressed = false;
     
-    public int ColorNumber = 1;
+    public static int ColorNumber = 1;
 
-    public ShapeAllKinds CurrShape = new EllipseDefault();
+    public static Type CurrShapeType = typeof(EllipseDefault);
+    
+    public static List<ShapeAllKinds> ShapesOnCanvas = new List<ShapeAllKinds>();
+    public static Canvas? CanvasForDrawing;
 
-    public Canvas? CanvasForDrawing;
+    public static UniformGrid UniColors;
+    public static UniformGrid UniShapes;
 
-    public UniformGrid UniColors;
-    public UniformGrid UniShapes;
-
-    public Popup PopupThicknesses;
+    public static Popup PopupThicknesses;
 }

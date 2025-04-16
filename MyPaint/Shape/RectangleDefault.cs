@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace MyPaint;
 
@@ -9,12 +10,14 @@ public class RectangleDefault : ShapeAllKinds
 {
     public double x1, y1, x2, y2;
 
+    [JsonIgnore]
     public double X1
     {
         get { return x1; }
         set { x1 = value; }
     }
 
+    [JsonIgnore]
     public double X2
     {
         get { return x2; }
@@ -26,12 +29,14 @@ public class RectangleDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public double Y1
     {
         get { return y1; }
         set { y1 = value; }
     }
 
+    [JsonIgnore]
     public double Y2
     {
         get { return y2; }
@@ -45,6 +50,7 @@ public class RectangleDefault : ShapeAllKinds
 
     public int strokeThickness;
 
+    [JsonIgnore]
     public int StrokeThickness
     {
         get { return strokeThickness; }
@@ -57,6 +63,7 @@ public class RectangleDefault : ShapeAllKinds
 
     public Color fillColor, strokeColor;
 
+    [JsonIgnore]
     public Color FillColor
     {
         get { return fillColor; }
@@ -67,6 +74,7 @@ public class RectangleDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public Color StrokeColor
     {
         get { return strokeColor; }
@@ -77,7 +85,7 @@ public class RectangleDefault : ShapeAllKinds
         }
     }
 
-    public override Shape FigurePtr { get; set; }
+    [JsonIgnore] public override Shape FigurePtr { get; set; }
 
     public override void UpdateData(InformationForDraw informationForDraw)
     {
@@ -99,9 +107,43 @@ public class RectangleDefault : ShapeAllKinds
         };
     }
 
-    //
-    // public Rectangle getFigure()
+
+    // public override DTOShape GetDTOShape()
     // {
-    //     return new Rectangle();
+    //     DTOShape dtoShape = new DTOShape()
+    //     {
+    //         FillColor = FillColor,
+    //         Type = this.GetType(),
+    //         StrokeColor = StrokeColor,
+    //         Points = new[] { new Point(X1, Y1), new Point(X2, Y2) },
+    //         StrokeThickness = StrokeThickness
+    //     };
+    //
+    //     return dtoShape;
     // }
+
+    // public override void DrawOnCanvas(Canvas canvas, DTOShape dtoshape)
+    // {
+    // }
+
+    public override void Draw(Canvas canvas)
+    {
+        FigurePtr = new Rectangle()
+        {
+            IsHitTestVisible = false,
+        };
+
+        // рисовка фигуры
+        {
+            X1 = x1;
+            X2 = x2;
+            Y1 = y1;
+            Y2 = y2;
+            StrokeColor = strokeColor;
+            FillColor = fillColor;
+            StrokeThickness = strokeThickness;
+        }
+
+        canvas.Children.Add(FigurePtr);
+    }
 }

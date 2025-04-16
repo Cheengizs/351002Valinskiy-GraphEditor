@@ -7,7 +7,7 @@ public class DefaultTools
 {
     public List<Color> ColorsTools = new List<Color>();
     public List<int> ThicknessesTools = new List<int>();
-    public List<ShapeAllKinds> ShapesTools = new List<ShapeAllKinds>();
+    public List<Type> ShapesTools = new List<Type>();
 
     public DefaultTools()
     {
@@ -46,8 +46,8 @@ public class DefaultTools
     {
         ShapesTools = Assembly.GetExecutingAssembly()
             .GetTypes()
-            .Where(t => t.IsClass && !t.IsAbstract && typeof(ShapeAllKinds).IsAssignableFrom(t))
-            .Select(t => (ShapeAllKinds)Activator.CreateInstance(t))
+            .Where(t => typeof(ShapeAllKinds).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
             .ToList();
     }
+    
 }

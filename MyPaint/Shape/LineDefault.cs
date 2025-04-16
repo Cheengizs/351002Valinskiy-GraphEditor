@@ -1,6 +1,8 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Controls;
+using Newtonsoft.Json;
+
 
 namespace MyPaint;
 
@@ -8,6 +10,7 @@ public class LineDefault : ShapeAllKinds
 {
     public double x1, y1, x2, y2;
 
+    [JsonIgnore]
     public double X1
     {
         get { return x1; }
@@ -18,6 +21,7 @@ public class LineDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public double X2
     {
         get { return x2; }
@@ -30,6 +34,7 @@ public class LineDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public double Y1
     {
         get { return y1; }
@@ -40,6 +45,7 @@ public class LineDefault : ShapeAllKinds
         }
     }
 
+    [JsonIgnore]
     public double Y2
     {
         get { return y2; }
@@ -53,31 +59,33 @@ public class LineDefault : ShapeAllKinds
         }
     }
 
-    public int lineThickness;
+    public int strokeThickness;
 
-    public int LineThickness
+    [JsonIgnore]
+    public int StrokeThickness
     {
-        get { return lineThickness; }
+        get { return strokeThickness; }
         set
         {
-            lineThickness = value;
+            strokeThickness = value;
             FigurePtr.StrokeThickness = value;
         }
     }
 
-    public Color lineColor;
+    public Color strokeColor;
 
-    public Color LineColor
+    [JsonIgnore]
+    public Color StrokeColor
     {
-        get { return lineColor; }
+        get { return strokeColor; }
         set
         {
-            lineColor = value;
+            strokeColor = value;
             FigurePtr.Stroke = new SolidColorBrush(value);
         }
     }
 
-    public override Shape FigurePtr { get; set; }
+    [JsonIgnore] public override Shape FigurePtr { get; set; }
 
     public override void UpdateData(InformationForDraw informationForDraw)
     {
@@ -86,8 +94,8 @@ public class LineDefault : ShapeAllKinds
         X2 = informationForDraw.xExit;
         Y2 = informationForDraw.yExit;
 
-        LineThickness = informationForDraw.Thickness;
-        LineColor = informationForDraw.StrokeColor;
+        StrokeThickness = informationForDraw.Thickness;
+        StrokeColor = informationForDraw.StrokeColor;
     }
 
     public override void Draw(InformationForDraw informationForDraw)
@@ -96,5 +104,25 @@ public class LineDefault : ShapeAllKinds
         {
             IsHitTestVisible = false,
         };
+    }
+
+    public override void Draw(Canvas canvas)
+    {
+        FigurePtr = new Line()
+        {
+            IsHitTestVisible = false,
+        };
+
+        // рисовка фигуры
+        {
+            X1 = x1;
+            X2 = x2;
+            Y1 = y1;
+            Y2 = y2;
+            StrokeColor = strokeColor;
+            StrokeThickness = strokeThickness;
+        }
+
+        canvas.Children.Add(FigurePtr);
     }
 }

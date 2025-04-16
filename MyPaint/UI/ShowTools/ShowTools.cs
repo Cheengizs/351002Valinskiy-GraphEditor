@@ -77,7 +77,7 @@ public class ShowTools
         _borderForStroke.MouseRightButtonDown += (s, e) => 
             { selectItemMethods.SelectStrokeColor(s, e, indexOfColor); };
         
-        informationForDraw.UniColors.Children.Add(_borderForStroke);
+        InformationForDraw.UniColors.Children.Add(_borderForStroke);
     }
 
     public void AddShapesToTools()
@@ -91,14 +91,14 @@ public class ShowTools
         Button _btnShape = new Button()
         {
             Background = Brushes.Transparent,
-            Content = defaultTools.ShapesTools[index].GetType().Name,
+            Content = defaultTools.ShapesTools[index].Name,
         };
 
         if (index == 0)
         {
             _btnShape.Background = Brushes.CornflowerBlue;
             selectedTool.CurrSelectedShape = _btnShape;
-            informationForDraw.CurrShape = defaultTools.ShapesTools[index];
+            InformationForDraw.CurrShapeType = defaultTools.ShapesTools[index];
         }
 
         _btnShape.Click += (s, e) =>
@@ -106,7 +106,7 @@ public class ShowTools
             selectItemMethods.SelectShape(s, e, index);
         };
 
-        informationForDraw.UniShapes.Children.Add(_btnShape);
+        InformationForDraw.UniShapes.Children.Add(_btnShape);
     }
 
     public void AddThicknessesToTools()
@@ -116,7 +116,7 @@ public class ShowTools
         for (int i = 0; i < defaultTools.ThicknessesTools.Count(); i++)
             _.Children.Add(AddOneThicknessToTools(i));
 
-        informationForDraw.PopupThicknesses.Child = _;
+        InformationForDraw.PopupThicknesses.Child = _;
     }
 
     private Button AddOneThicknessToTools(int index)
