@@ -3,20 +3,20 @@ using System.Reflection;
 
 namespace MyPaint;
 
-public static class DefaultTools
+public class DefaultTools
 {
-    public static List<Color> ColorsTools = new List<Color>();
-    public static List<int> ThicknessesTools = new List<int>();
-    public static List<ShapeAllKinds> ShapesTools = new List<ShapeAllKinds>();
+    public List<Color> ColorsTools = new List<Color>();
+    public List<int> ThicknessesTools = new List<int>();
+    public List<ShapeAllKinds> ShapesTools = new List<ShapeAllKinds>();
 
-    static DefaultTools()
+    public DefaultTools()
     {
         InitializeColors();
         InitializeThicknesses();
         InitializeShapes();
     }
 
-    static void InitializeColors()
+    void InitializeColors()
     {
         ColorsTools.Add(Colors.Black);
         ColorsTools.Add(Colors.White);
@@ -32,7 +32,7 @@ public static class DefaultTools
         ColorsTools.Add(Colors.Black);
     }
 
-    static void InitializeThicknesses()
+    void InitializeThicknesses()
     {
         ThicknessesTools.Add(2);
         ThicknessesTools.Add(4);
@@ -42,7 +42,7 @@ public static class DefaultTools
         ThicknessesTools.Sort();
     }
 
-    static void InitializeShapes()
+    void InitializeShapes()
     {
         ShapesTools = Assembly.GetExecutingAssembly()
             .GetTypes()

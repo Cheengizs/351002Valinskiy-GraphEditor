@@ -11,7 +11,7 @@ namespace MyPaint
         public Undo_Redo undoRedo;
         public SelectedTool selectedTool;
         public SelectItemMethods selectItemMethods;
-
+        public DefaultTools defaultTools;
         public MainWindow()
         {
             InitializeComponent();
@@ -23,14 +23,16 @@ namespace MyPaint
                 UniColors = uniColors,
                 UniShapes = uniShapes
             };
-
-
+            
+            defaultTools = new DefaultTools();
+            
             selectedTool = new SelectedTool();
 
             selectItemMethods = new SelectItemMethods()
             {
                 informationForDraw = informationForDraw,
-                selectedTool = this.selectedTool
+                selectedTool = selectedTool,
+                defaultTools = defaultTools
             };
 
             undoRedo = new Undo_Redo()
@@ -42,7 +44,8 @@ namespace MyPaint
             {
                 informationForDraw = this.informationForDraw,
                 selectItemMethods = selectItemMethods,
-                selectedTool = selectedTool
+                selectedTool = selectedTool,
+                defaultTools = defaultTools
             };
 
             showTools.AddColorsToTools();

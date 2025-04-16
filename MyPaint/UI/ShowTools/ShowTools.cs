@@ -10,10 +10,11 @@ public class ShowTools
     public InformationForDraw informationForDraw;
     public SelectItemMethods selectItemMethods;
     public SelectedTool selectedTool;
+    public DefaultTools defaultTools;
     
     public void AddColorsToTools()
     {
-        for (int i = 0; i < DefaultTools.ColorsTools.Count(); i++)
+        for (int i = 0; i < defaultTools.ColorsTools.Count(); i++)
             AddOneColorToTools(i);
     }
 
@@ -37,12 +38,12 @@ public class ShowTools
         switch (indexOfColor)
         {
             case 0:
-                informationForDraw.StrokeColor = DefaultTools.ColorsTools[indexOfColor];
+                informationForDraw.StrokeColor = defaultTools.ColorsTools[indexOfColor];
                 _borderForStroke.BorderBrush = Brushes.CornflowerBlue;
                 selectedTool.CurrSelectedStrokeColor = _borderForStroke;
                 break;
             case 1:
-                informationForDraw.FillColor = DefaultTools.ColorsTools[indexOfColor];
+                informationForDraw.FillColor = defaultTools.ColorsTools[indexOfColor];
                 _borderForFill.BorderBrush = Brushes.Maroon;
                 selectedTool.CurrSelectedFillColor = _borderForFill;
                 break;
@@ -62,7 +63,7 @@ public class ShowTools
             Width = 10,
             Height = 10,
             Margin = new Thickness(1),
-            Fill = new SolidColorBrush(DefaultTools.ColorsTools[indexOfColor]),
+            Fill = new SolidColorBrush(defaultTools.ColorsTools[indexOfColor]),
             IsHitTestVisible = true,
         };
 
@@ -81,7 +82,7 @@ public class ShowTools
 
     public void AddShapesToTools()
     {
-        for (int i = 0; i < DefaultTools.ShapesTools.Count; i++)
+        for (int i = 0; i < defaultTools.ShapesTools.Count; i++)
             AddOneShapeToTools(i);
     }
 
@@ -90,14 +91,14 @@ public class ShowTools
         Button _btnShape = new Button()
         {
             Background = Brushes.Transparent,
-            Content = DefaultTools.ShapesTools[index].GetType().Name,
+            Content = defaultTools.ShapesTools[index].GetType().Name,
         };
 
         if (index == 0)
         {
             _btnShape.Background = Brushes.CornflowerBlue;
             selectedTool.CurrSelectedShape = _btnShape;
-            informationForDraw.CurrShape = DefaultTools.ShapesTools[index];
+            informationForDraw.CurrShape = defaultTools.ShapesTools[index];
         }
 
         _btnShape.Click += (s, e) =>
@@ -112,7 +113,7 @@ public class ShowTools
     {
         StackPanel _ = new StackPanel();
 
-        for (int i = 0; i < DefaultTools.ThicknessesTools.Count(); i++)
+        for (int i = 0; i < defaultTools.ThicknessesTools.Count(); i++)
             _.Children.Add(AddOneThicknessToTools(i));
 
         informationForDraw.PopupThicknesses.Child = _;
@@ -133,7 +134,7 @@ public class ShowTools
 
         Line _ThicknessShow = new Line()
         {
-            StrokeThickness = DefaultTools.ThicknessesTools[index],
+            StrokeThickness = defaultTools.ThicknessesTools[index],
             Stroke = new SolidColorBrush(Colors.Black),
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
