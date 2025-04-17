@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using JsonException = Newtonsoft.Json.JsonException;
 
 namespace MyPaint
 {
@@ -17,22 +18,23 @@ namespace MyPaint
         public SelectedTool selectedTool;
         public SelectItemMethods selectItemMethods;
         public DefaultTools defaultTools;
-        
+
         public List<ShapeAllKinds> ShapesOnCanvas = new List<ShapeAllKinds>();
+
         public MainWindow()
         {
             InitializeComponent();
 
             informationForDraw = new InformationForDraw();
-            
+
             InformationForDraw.CanvasForDrawing = canvasForDrawing;
             InformationForDraw.PopupThicknesses = popupThicknesses;
             InformationForDraw.UniColors = uniColors;
             InformationForDraw.UniShapes = uniShapes;
             InformationForDraw.ShapesOnCanvas = ShapesOnCanvas;
-                
+
             defaultTools = new DefaultTools();
-            
+
             selectedTool = new SelectedTool();
 
             selectItemMethods = new SelectItemMethods()
@@ -117,23 +119,35 @@ namespace MyPaint
         {
             OpenFileDialog _ = new OpenFileDialog()
             {
-                Filter = "graph edit files (*.gredit)|*.gredit"
+                Filter = "graph edit files (*.json)|*.json"
             };
 
             if (_.ShowDialog() == true)
             {
                 if (string.IsNullOrEmpty(_.FileName)) return;
-                
+
                 InformationForDraw.CanvasForDrawing?.Children?.Clear();
                 string shapesInJson = File.ReadAllText(_.FileName);
+
+                List<ShapeAllKinds> temp;
+                try
+                {
+                    temp = JsonConvert.DeserializeObject<List<ShapeAllKinds>>(shapesInJson,
+                        new JsonSerializerSettings()
+                        {
+                            TypeNameHandling = TypeNameHandling.All
+                        });
+                }
+                catch (JsonException exception)
+                {
+                    Console.WriteLine($" ошибка открытия файла, вероятно неверный формат файла{exception.Message}");
+                    return;
+                }
                 
                 ShapesOnCanvas.Clear();
-                ShapesOnCanvas = JsonConvert.DeserializeObject<List<ShapeAllKinds>>(shapesInJson, new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                });
+                ShapesOnCanvas = temp;
                 InformationForDraw.ShapesOnCanvas = ShapesOnCanvas;
-                
+
                 Console.WriteLine(JsonConvert.SerializeObject(ShapesOnCanvas, new JsonSerializerSettings()
                 {
                     TypeNameHandling = TypeNameHandling.Auto
@@ -141,21 +155,17 @@ namespace MyPaint
 
                 foreach (var elem in ShapesOnCanvas)
                     elem.Draw(InformationForDraw.CanvasForDrawing);
-                
-
-
             }
-            
         }
-        
+
         private void MenuSaveFile_SaveFile(object sender, RoutedEventArgs e)
         {
             var _ = new SaveFileDialog()
             {
                 Title = "Сохранить как",
                 FileName = "",
-                DefaultExt = ".gredit",        // Можно указать любое расширение
-                Filter = "Graph editor (*.gredit)|*.gredit"
+                DefaultExt = ".json", // Можно указать любое расширение
+                Filter = "Graph editor (*.json)|*.json"
             };
 
             if (_.ShowDialog() == true)
@@ -164,7 +174,7 @@ namespace MyPaint
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-                    
+
                 Console.WriteLine(shapesJson);
                 File.WriteAllText(_.FileName, shapesJson);
             }
@@ -172,8 +182,6 @@ namespace MyPaint
 
         private void MenuSaveAs_SaveAsFile(object sender, RoutedEventArgs e)
         {
-            
         }
-        
     }
 }
